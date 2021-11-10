@@ -1,7 +1,16 @@
 const controller = {};
 
 controller.list = (req,res) =>{
-    res.send('hello world')
+    req.getConnection((err, conn)=>{
+        conn.query('SELECT * FROM customers', (err, rows) =>{
+            if(err) {
+                res.json(err);
+            }
+            res.render('customers',{
+                data: rows
+            });
+        });
+    });
 };
 
 module.exports = controller;
