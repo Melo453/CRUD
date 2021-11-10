@@ -7,7 +7,7 @@ const myConnection = require('express-myconnection');
 const app = express();
 
 
-const customer = require('./routes/customers');
+const customerRoutes = require('./routes/customer');
 
 
 
@@ -19,6 +19,7 @@ app.set('views',path.join(__dirname, 'views'));
 
 
 app.use(morgan('dev'));
+
 app.use(myConnection(mysql,{
     host: 'localhost',
     user: 'root',
@@ -30,7 +31,9 @@ app.use(myConnection(mysql,{
 
 //rutas
 
-app.use('/',customer);
+app.use('/',customerRoutes);
+
+app.use(express.static(path.join(__dirname, 'public')));
 //puerto
 app.listen(app.get('port'), () =>{
     console.log('servidor corriendo en el puerto',  app.get('port') );
