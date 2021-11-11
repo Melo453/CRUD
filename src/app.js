@@ -8,6 +8,8 @@ const app = express();
 
 
 const customerRoutes = require('./routes/customer');
+const { urlencoded } = require('express');
+const exp = require('constants');
 
 
 
@@ -27,8 +29,7 @@ app.use(myConnection(mysql,{
     port: 3306,
     database: 'pruebaCrud'
 }, 'single'));
-
-
+app.use(express.urlencoded({extended: false}));
 //rutas
 
 app.use('/',customerRoutes);
